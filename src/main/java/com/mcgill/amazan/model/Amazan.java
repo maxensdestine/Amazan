@@ -33,7 +33,7 @@ public class Amazan
   {
     boolean wasSet = false;
     User old = users.stream().filter(obj -> obj.getUsername().equals(user.getUsername())).findAny().orElse(null);
-    if(user.getUsername() == null && old == null){
+    if(old == null){
       users.add(user);
       wasSet = true;
     }
