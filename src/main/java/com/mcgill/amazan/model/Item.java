@@ -14,9 +14,10 @@ public class Item
 
 
   public Item(){}
-  public Item(float price, String name, String description, String sellerUsername)
+  public Item(float price, int quantity, String name, String description, String sellerUsername)
   {
     this.price = price;
+    this.quantity = quantity;
     this.name = name;
     this.description = description;
     this.sellerUsername = sellerUsername;
@@ -38,7 +39,7 @@ public class Item
     }
     if(nullFields.size() > 0){
       String fieldNames = String.join(", ", nullFields);
-      throw new RuntimeException(
+      throw new IllegalArgumentException(
               "Error while creating an item because the following fields were null or empty or invalid:" + fieldNames);
     }
   }

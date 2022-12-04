@@ -1,10 +1,14 @@
 package com.mcgill.amazan.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.*;
 import static com.mcgill.amazan.model.Utils.isNotNullOrEmpty;
 
 public class User
 {
+  @Autowired
+  private Amazan amazan;
   private String firstName;
   private String lastName;
   private String email;
@@ -25,7 +29,7 @@ public class User
     this.password = password;
     this.isDeleted = isDeleted;
     this.isBanned = isBanned;
-    Amazan.getInstance().addUser(this);
+    amazan.addUser(this);
   }
 
   private void checkFields(String firstName, String lastName, String email, String username, String password){
@@ -47,7 +51,7 @@ public class User
     }
     if(nullFields.size() > 0){
       String fieldNames = String.join(", ", nullFields);
-      throw new RuntimeException(
+      throw new IllegalArgumentException(
               "Error while creating a user because the following fields were null or empty:" + fieldNames);
     }
   }

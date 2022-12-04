@@ -1,5 +1,6 @@
 package com.mcgill.amazan.model;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Seller extends User
 {
@@ -34,7 +35,7 @@ public class Seller extends User
   }
 
   /**
-   * Add an item to this seller if the item is not owned and is not already in the list
+   * Add an item to this seller if the item is not owned by another user and is not already in the list
    * @param item the Item object which should be added
    * @return true if the insertion was successful, false otherwise
    */
@@ -42,7 +43,7 @@ public class Seller extends User
   {
     boolean wasSet = false;
     Item old = items.stream().filter(obj -> obj.getName().equals(item.getName())).findAny().orElse(null);
-    if(item.getSellerUsername() == null && old == null){
+    if((item.getSellerUsername() == null || item.getSellerUsername().equals(this.getUsername())) && old == null){
       item.setSellerUsername(this.getUsername());
       items.add(item);
       wasSet = true;
@@ -69,8 +70,13 @@ public class Seller extends User
    * @param name the name of the item to remove
    * @return true if an item was removed, false otherwise
    */
-  public boolean removeItem(String name){
-    return items.removeIf(item -> item.getName().equals(name));
+  public Item removeItem(String name){
+    int index = IntStream.range(0, items.size()).filter(i -> items.get(i).getName().equals(name))
+            .findAny().orElse(-1);
+    if(index != -1){
+      return items.remove(index);
+    }
+    return null;
   }
 
   public void removeAllItems(){

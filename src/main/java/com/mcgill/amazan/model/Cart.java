@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 public class Cart
 {
 
-  private List<Item> items = new ArrayList<Item>();
+  private List<Item> items = new ArrayList<>();
 
   public Cart() {}
 
