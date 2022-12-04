@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class AmazanTest {
 
     @Test
-    public void testAddNewUser(){
+    public void testAddUserOnce(){
         Amazan amazan = new Amazan();
         User expectedUser = new User();
         expectedUser.setUsername("joe");
@@ -17,7 +17,7 @@ public class AmazanTest {
     }
 
     @Test
-    public void testAddAlreadyAddedUser(){
+    public void testAddUserTwice(){
         Amazan amazan = new Amazan();
         User expectedUser = new User();
         expectedUser.setUsername("joe");
