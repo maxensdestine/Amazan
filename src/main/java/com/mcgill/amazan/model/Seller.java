@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 public class Seller extends User
 {
 
-  private ArrayList<Item> items;
+  private ArrayList<Item> items = new ArrayList<>();
 
 
   public Seller(){}
@@ -25,13 +25,6 @@ public class Seller extends User
   public List<Item> getItems()
   {
     return Collections.unmodifiableList(items);
-  }
-
-  public Item getItemAt(int index){
-    if(index < 0 || index > items.size()){
-      return null;
-    }
-    return items.get(index);
   }
 
   public Item getItemWithName(String name){
@@ -58,20 +51,6 @@ public class Seller extends User
   }
 
   /**
-   * Add a collection of items to this seller
-   * @param items the iterable object which contains the items to be added
-   * @return true if every insertion was successful, false otherwise
-   */
-  public boolean addItems(Iterable<Item> items)
-  {
-    boolean allSuccess = true;
-    for(Item item: items){
-      allSuccess = allSuccess && addItem(item);
-    }
-    return allSuccess;
-  }
-
-  /**
    * Removes the item with the given name
    * @param name the name of the item to remove
    * @return true if an item was removed, false otherwise
@@ -83,10 +62,6 @@ public class Seller extends User
       return items.remove(index);
     }
     return null;
-  }
-
-  public void removeAllItems(){
-    items.clear();
   }
 
 
