@@ -1,6 +1,7 @@
 package com.mcgill.amazan.model;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Cart
 {
@@ -56,10 +57,15 @@ public class Cart
   /**
    * Removes the first item with the given uuid
    * @param uuid the uudi of the item to remove
-   * @return true if an item was removed, false otherwise
+   * @return the removed item or null if nothing was removed
    */
-  public boolean removeItem(String uuid){
-      return items.removeIf(item -> item.getUuid().equals(uuid));
+  public Item removeItem(String uuid){
+    int index = IntStream.range(0, items.size()).filter(i -> items.get(i).getUuid().equals(uuid))
+            .findAny().orElse(-1);
+    if(index != -1){
+      return items.remove(index);
+    }
+    return null;
   }
 
   public void removeAllItems(){
