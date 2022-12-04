@@ -153,7 +153,7 @@ public class User
   }
 
   public boolean authenticate(String password){
-    return this.password.equals(password);
+    return !isBanned && !isDeleted && this.password.equals(password);
   }
 
   public String toString()
