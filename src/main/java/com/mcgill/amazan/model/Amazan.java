@@ -1,9 +1,7 @@
 package com.mcgill.amazan.model;
 
 import org.springframework.stereotype.Component;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class Amazan
@@ -37,23 +35,5 @@ public class Amazan
       wasSet = true;
     }
     return wasSet;
-  }
-
-  /**
-   * Add a collection of users to this seller
-   * @param users the iterable object which contains the users to be added
-   * @return true if every insertion was successful, false otherwise
-   */
-  public boolean addUsers(Iterable<User> users)
-  {
-    boolean allSuccess = true;
-    for(User user: users){
-      allSuccess = allSuccess && addUser(user);
-    }
-    return allSuccess;
-  }
-
-  public void reset(){
-    users.clear();
   }
 }
