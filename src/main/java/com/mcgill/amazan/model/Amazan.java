@@ -10,7 +10,7 @@ public class Amazan
 {
   private List<User> users = new ArrayList<>();
 
-  private Amazan() {}
+  public Amazan() {}
 
   public List<User> getUsers()
   {
