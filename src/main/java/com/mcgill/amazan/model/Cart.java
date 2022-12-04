@@ -28,16 +28,9 @@ public class Cart
     return collection;
   }
 
-  /**
-   * Add an item to this seller
-   * @param item the Item object which should be added
-   * @return true if the insertion was successful, false otherwise
-   */
-  public boolean addItem(Item item)
+  public void addItem(Item item)
   {
-    boolean wasSet = false;
       items.add(item);
-    return wasSet;
   }
 
   /**
@@ -45,13 +38,9 @@ public class Cart
    * @param items the iterable object which contains the items to be added
    * @return true if every insertion was successful, false otherwise
    */
-  public boolean addItems(Iterable<Item> items)
+  public void addItems(Collection<Item> items)
   {
-    boolean allSuccess = true;
-    for(Item item: items){
-      allSuccess = allSuccess && addItem(item);
-    }
-    return allSuccess;
+    this.items.addAll(items);
   }
 
   /**
