@@ -7,8 +7,6 @@ import static com.mcgill.amazan.model.Utils.isNotNullOrEmpty;
 
 public class User
 {
-  @Autowired
-  private Amazan amazan;
   private String firstName;
   private String lastName;
   private String email;
@@ -29,7 +27,6 @@ public class User
     this.password = password;
     this.isDeleted = isDeleted;
     this.isBanned = isBanned;
-    amazan.addUser(this);
   }
 
   private void checkFields(String firstName, String lastName, String email, String username, String password){
