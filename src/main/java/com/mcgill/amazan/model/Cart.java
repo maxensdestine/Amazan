@@ -15,12 +15,6 @@ public class Cart
     return Collections.unmodifiableList(items);
   }
 
-  public Item getItemAt(int index){
-    if(index < 0 || index > items.size()){
-      return null;
-    }
-    return items.get(index);
-  }
 
   public Collection<Item> getItemsWithName(String name){
     Collection<Item> collection = items.stream().filter(item -> item.getName().equals(name))
@@ -31,16 +25,6 @@ public class Cart
   public void addItem(Item item)
   {
       items.add(item);
-  }
-
-  /**
-   * Add a collection of items to this seller
-   * @param items the iterable object which contains the items to be added
-   * @return true if every insertion was successful, false otherwise
-   */
-  public void addItems(Collection<Item> items)
-  {
-    this.items.addAll(items);
   }
 
   /**
@@ -56,11 +40,5 @@ public class Cart
     }
     return null;
   }
-
-  public void removeAllItems(){
-    items.clear();
-  }
-
-
 
 }
