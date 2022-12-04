@@ -3,8 +3,6 @@ package com.mcgill.amazan.service;
 import com.mcgill.amazan.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
