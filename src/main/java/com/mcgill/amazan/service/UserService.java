@@ -44,9 +44,6 @@ public class UserService {
 
     public boolean authenticate(String username, String password){
         User user = getUser(username);
-        if(user != null && user.getPassword().equals(password)){
-            return true;
-        }
-        return false;
+        return user.authenticate(password);
     }
 }
