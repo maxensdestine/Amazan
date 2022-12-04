@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 @Component
 public class Amazan
 {
-  private static Amazan amazan;
   private List<User> users = new ArrayList<>();
 
   private Amazan() {}
