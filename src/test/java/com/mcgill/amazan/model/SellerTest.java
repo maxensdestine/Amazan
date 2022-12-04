@@ -25,4 +25,29 @@ public class SellerTest {
         seller.addItem(expectedItem);
         assertEquals(1, seller.getItems().size());
     }
+
+    @Test
+    public void testRemoveItem(){
+        Seller seller = new Seller();
+        Item expectedItem = new Item();
+        expectedItem.setName("artwork");
+        seller.addItem(expectedItem);
+        Item actualItem = seller.removeItem("artwork");
+        assertEquals(expectedItem, actualItem);
+        assertEquals(0, seller.getItems().size());
+    }
+
+    @Test
+    public void testRemoveItemTwice(){
+        Seller seller = new Seller();
+        Item item = new Item();
+        item.setName("artwork");
+        seller.addItem(item);
+
+        seller.removeItem("artwork");
+        Item actualItem = seller.removeItem("artwork");
+
+        assertEquals(null, actualItem);
+        assertEquals(0, seller.getItems().size());
+    }
 }
