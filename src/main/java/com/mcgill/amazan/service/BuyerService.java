@@ -49,7 +49,7 @@ public class BuyerService {
         Item item = null;
         item = seller.getItemWithName(itemName);
         if(item != null){
-            item = buyer.getCart().removeItem(item.getUuid()) ? item : null;
+            item = buyer.getCart().removeItem(item.getUuid());
         }
         return item;
     }
@@ -59,12 +59,15 @@ public class BuyerService {
         HashMap<Item, Integer> itemCount = new HashMap<>();
         Cart cart = buyer.getCart();
         for(Item item: cart.getItems()){
-            Integer count = itemCount.get(item);
-            int actualCount = count == null ? 1 : Math.min(count + 1, item.getQuantity());
-            if(count == null || actualCount != count){
-                cart.removeItem(item.getUuid());
-                itemCount.put(item, actualCount);
+            if(item.getQuantity() == 0){
+                continue;
             }
+            Integer count = itemCount.get(item);
+            int actualCount = count == null ? 1 : count + 1;
+            cart.removeItem(item.getUuid());
+            item.setQuantity(item.getQuantity() - 1);
+            itemCount.put(item, actualCount);
+
         }
 
         String[] report = new String[itemCount.size() + 1];
