@@ -1,13 +1,15 @@
 package com.mcgill.amazan.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Component
 public class Amazan
 {
   private static Amazan amazan;
   private List<User> users = new ArrayList<>();
-  private List<TransactionReport> transactionReports = new ArrayList<>();
 
   private Amazan() {}
 
@@ -52,53 +54,7 @@ public class Amazan
     return allSuccess;
   }
 
-  public List<TransactionReport> getTransactionReports()
-  {
-    return Collections.unmodifiableList(transactionReports);
-  }
-
-  public Collection<TransactionReport> getTransactionsByUsername(String username){
-    Collection<TransactionReport> reports = transactionReports.stream().filter(transac ->
-                    transac.getSellerUsername().equals(username) || transac.getBuyerUsername().equals(username))
-            .collect(Collectors.toUnmodifiableList());
-    return reports;
-  }
-
-  public boolean addTransactionReport(TransactionReport transactionReport)
-  {
-    boolean wasSet = false;
-    TransactionReport old = transactionReports.stream().filter(obj -> obj.getUuid().equals(transactionReport.getUuid())).findAny().orElse(null);
-    if(old == null){
-      transactionReports.add(transactionReport);
-      wasSet = true;
-    }
-    return wasSet;
-  }
-
-  /**
-   * Add a collection of transaction reports
-   * @param transactionReports the iterable object which contains the transactions to be added
-   * @return true if every insertion was successful, false otherwise
-   */
-  public boolean addTransactionReports(Iterable<TransactionReport> transactionReports)
-  {
-    boolean allSuccess = true;
-    for(TransactionReport transactionReport: transactionReports){
-      allSuccess = allSuccess && addTransactionReport(transactionReport);
-    }
-    return allSuccess;
-  }
-
   public void reset(){
     users.clear();
-    transactionReports.clear();
-  }
-
-
-  public static Amazan getInstance(){
-    if(amazan == null){
-      amazan = new Amazan();
-    }
-    return amazan;
   }
 }
