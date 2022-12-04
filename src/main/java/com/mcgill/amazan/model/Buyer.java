@@ -8,10 +8,17 @@ public class Buyer extends User
   private Cart cart;
 
   public Buyer(){}
-  public Buyer(String firstName, String lastName, String email, String username, String passwordHash,
+
+  public static Buyer createBuyer(Buyer buyer){
+    return new Buyer(buyer.getFirstName(), buyer.getLastName(), buyer.getEmail(), buyer.getUsername(),
+            buyer.getPassword(), buyer.getIsDeleted(), buyer.getIsBanned(),
+            buyer.getCreditCard(), buyer.getCreditCardPassword());
+  }
+
+  public Buyer(String firstName, String lastName, String email, String username, String password,
                boolean isDeleted, boolean isBanned, String creditCard, String creditCardPassword)
   {
-    super(firstName, lastName, email, username, passwordHash, isDeleted, isBanned);
+    super(firstName, lastName, email, username, password, isDeleted, isBanned);
     this.creditCard = creditCard;
     this.creditCardPassword = creditCardPassword;
     Cart cart = new Cart();

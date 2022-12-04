@@ -9,10 +9,16 @@ public class Seller extends User
 
 
   public Seller(){}
-  public Seller(String firstName, String lastName, String email, String username, String passwordHash,
+
+  public static Seller createSeller(Seller seller){
+    return new Seller(seller.getFirstName(), seller.getLastName(), seller.getEmail(), seller.getUsername(),
+            seller.getPassword(), seller.getIsDeleted(), seller.getIsBanned());
+  }
+
+  public Seller(String firstName, String lastName, String email, String username, String password,
                 boolean isDeleted, boolean isBanned)
   {
-    super(firstName, lastName, email, username, passwordHash, isDeleted, isBanned);
+    super(firstName, lastName, email, username, password, isDeleted, isBanned);
 
   }
 

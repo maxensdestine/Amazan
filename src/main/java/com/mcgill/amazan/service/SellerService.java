@@ -11,18 +11,15 @@ import org.springframework.stereotype.Service;
 public class SellerService {
 
     private final UserService userService;
-    private final Amazan amazan;
 
     @Autowired
-    public SellerService(Amazan amazan, UserService userService){
+    public SellerService(UserService userService){
         this.userService = userService;
-        this.amazan = amazan;
     }
 
-    public Seller createSeller(String firstName, String lastName, String email, String username,
-                             String passwordHash){
+    public Seller createSeller(Seller toBeCreated){
 
-        Seller seller = new Seller(firstName, lastName, email, username, passwordHash, false, false);
+        Seller seller = Seller.createSeller(toBeCreated);
         seller = userService.addUser(seller) ? seller : null;
         return seller;
     }

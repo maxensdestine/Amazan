@@ -8,22 +8,16 @@ import java.util.HashMap;
 @Service
 public class BuyerService {
 
-    private final Amazan amazan;
     private final UserService userService;
-    private final SellerService sellerService;
 
     @Autowired
-    public BuyerService(Amazan amazan, UserService userService, SellerService sellerService){
-        this.amazan = amazan;
+    public BuyerService(UserService userService){
         this.userService = userService;
-        this.sellerService = sellerService;
     }
 
-    public Buyer createBuyer(String firstName, String lastName, String email, String username,
-                                    String passwordHash, String creditCard, String creditCardPassword){
+    public Buyer createBuyer(Buyer toBeCreated){
 
-        Buyer buyer = new Buyer(firstName, lastName, email, username, passwordHash, false, false,
-                creditCard, creditCardPassword);
+        Buyer buyer = Buyer.createBuyer(toBeCreated);
         buyer = userService.addUser(buyer) ? buyer : null;
         return buyer;
     }
