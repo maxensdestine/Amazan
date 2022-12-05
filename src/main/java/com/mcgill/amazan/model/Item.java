@@ -14,6 +14,12 @@ public class Item
 
 
   public Item(){}
+
+  public static Item createItem(Item item){
+    return new Item(item.getPrice(), item.getQuantity(), item.getName(),
+            item.getDescription(), item.getSellerUsername());
+  }
+
   public Item(float price, int quantity, String name, String description, String sellerUsername)
   {
     this.price = price;

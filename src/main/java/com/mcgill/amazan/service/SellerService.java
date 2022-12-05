@@ -33,6 +33,7 @@ public class SellerService {
     }
 
     public Item addItem(Seller seller, Item item){
+        item = Item.createItem(item);
         item = seller.addItem(item) ? item : null;
         return item;
     }

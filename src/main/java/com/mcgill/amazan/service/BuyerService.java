@@ -22,7 +22,7 @@ public class BuyerService {
         return buyer;
     }
 
-    private Buyer getBuyer(String username){
+    public Buyer getBuyer(String username){
         User user = userService.getUser(username);
         if(user instanceof Buyer){
             return (Buyer) user;
