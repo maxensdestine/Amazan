@@ -42,46 +42,21 @@ public class BuyerController {
 
     @PostMapping("/buyer/add")
     public Item addToCart(@RequestBody Map<String, String> json) {
-        String buyerUsername = json.get("buyer");
-        String sellerUsername = json.get("seller");
-        String password = json.get("password");
+        User[] users = getBuyerAndSeller(json);
+        Buyer buyer = (Buyer) users[0];
+        Seller seller = (Seller) users[1];
         String itemName = json.get("item");
-        Buyer buyer = buyerService.getBuyer(buyerUsername);
-        Seller seller = sellerService.getSeller(sellerUsername);
-        if (buyer == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "This buyer does not exist");
-        } else if (!buyer.authenticate(password)) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "The password was incorrect or the buyer is banned/deleted");
-        } else if (seller == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "This seller does not exist");
-        } else {
-            return buyerService.addToCart(buyer, seller, itemName);
-        }
+        return buyerService.addToCart(buyer, seller, itemName);
     }
 
     @PostMapping("/buyer/remove")
     public Item removeFromCart(@RequestBody Map<String, String> json) {
-        String buyerUsername = json.get("buyer");
-        String sellerUsername = json.get("seller");
-        String password = json.get("password");
+        User[] users = getBuyerAndSeller(json);
+        Buyer buyer = (Buyer) users[0];
+        Seller seller = (Seller) users[1];
         String itemName = json.get("item");
-        Buyer buyer = buyerService.getBuyer(buyerUsername);
-        Seller seller = sellerService.getSeller(sellerUsername);
-        if (buyer == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "This buyer does not exist");
-        } else if (!buyer.authenticate(password)) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "The password was incorrect or the buyer is banned/deleted");
-        } else if (seller == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "This seller does not exist");
-        } else {
-            return buyerService.removeFromCart(buyer, seller, itemName);
-        }
+        return buyerService.removeFromCart(buyer, seller, itemName);
+
     }
 
     @PostMapping("/buyer/checkout")
@@ -100,5 +75,23 @@ public class BuyerController {
         }
     }
 
+    private User[] getBuyerAndSeller(Map<String, String> json){
+        String buyerUsername = json.get("buyer");
+        String sellerUsername = json.get("seller");
+        String password = json.get("password");
+        Buyer buyer = buyerService.getBuyer(buyerUsername);
+        Seller seller = sellerService.getSeller(sellerUsername);
+        if (buyer == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "This buyer does not exist");
+        } else if (!buyer.authenticate(password)) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "The password was incorrect or the buyer is banned/deleted");
+        } else if (seller == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "This seller does not exist");
+        }
+        return new User[]{buyer, seller};
+    }
 
 }
