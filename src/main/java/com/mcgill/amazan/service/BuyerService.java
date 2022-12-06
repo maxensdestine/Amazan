@@ -4,6 +4,7 @@ import com.mcgill.amazan.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 @Service
 public class BuyerService {
@@ -52,7 +53,8 @@ public class BuyerService {
         boolean failed = false;
         HashMap<Item, Integer> itemCount = new HashMap<>();
         Cart cart = buyer.getCart();
-        for(Item item: cart.getItems()){
+        ArrayList<Item> items = new ArrayList<>(cart.getItems());
+        for(Item item: items){
             if(item.getQuantity() == 0){
                 continue;
             }
